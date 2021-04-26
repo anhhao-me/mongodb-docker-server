@@ -1,0 +1,9 @@
+version: "3.4"
+
+services:
+  db:
+    build: ./
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb/data/db:/data/db
