@@ -1,11 +1,15 @@
 const { spawn, execSync } = require('child_process')
 const debug = require('debug')('mongodb-docker-server:index');
 
+const config = {
+  cwd: __dirname
+}
+
 module.exports = {
   cmd: null,
   start(){
     return new Promise((resolve) => {
-      this.cmd = spawn('bash', ['./start.sh'])
+      this.cmd = spawn('bash', ['./start.sh'], config)
 
       let isRunning = false;
 
@@ -24,7 +28,7 @@ module.exports = {
   stop(){
     if (this.cmd){
       this.cmd.kill('SIGINT');
-      execSync('docker-compose down');
+      execSync('docker-compose down', config);
     }
   }
 };
